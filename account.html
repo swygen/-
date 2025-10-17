@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>একাউন্ট সেটিংস - অ্যাপ</title>
+    <!-- ফন্ট আইকন (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:wght@400;700&display=swap');
+
+        :root {
+            --black-bg: #121212;
+            --card-bg-blur: rgba(255, 255, 255, 0.08);
+            --card-border: rgba(255, 255, 255, 0.15);
+            --account-color: #f39c12;
+            --primary-color: #3498db;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --text-color: #ffffff;
+            --light-text: #cccccc;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Tiro Bangla', sans-serif;
+            background-color: var(--black-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            padding: 20px;
+            padding-bottom: 80px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: var(--card-bg-blur);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--account-color);
+            text-shadow: 0 0 8px rgba(243, 156, 18, 0.6);
+        }
+
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid var(--account-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .profile-pic svg {
+            width: 70%;
+            height: 70%;
+            fill: var(--light-text);
+        }
+        .profile-header h3 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .profile-header p {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin: 5px 0 0 0;
+        }
+        .balance-chip {
+            margin-top: 10px;
+            padding: 5px 15px;
+            background-color: var(--success-color);
+            color: var(--black-bg);
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: var(--account-color);
+            outline: none;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 65px;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--light-text);
+            font-size: 0.7rem;
+            transition: color 0.3s ease;
+            width: 20%;
+            padding: 5px 0;
+        }
+        .nav-item i {
+            font-size: 1.3rem;
+            margin-bottom: 3px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .nav-item:hover, .nav-item.active {
+            color: var(--account-color);
+        }
+        .nav-item.active i {
+            color: var(--account-color);
+            transform: scale(1.1);
+        }
+
+        .toast-message {
+            visibility: hidden;
+            min-width: 250px;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px;
+            position: fixed;
+            z-index: 2000;
+            left: 50%;
+            bottom: 80px;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .toast-message.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 90px;
+        }
+        .toast-success { background-color: var(--success-color); color: var(--black-bg); }
+        .toast-danger { background-color: var(--danger-color); color: var(--text-color); }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="glass-card">
+            <div class="profile-header">
+                <div class="profile-pic">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                </div>
+                <h3 id="display-name">ব্যবহারকারীর নাম লোড হচ্ছে...</h3>
+                <p id="display-email">ইমেল লোড হচ্ছে...</p>
+                <div class="balance-chip">ব্যালেন্স: <span id="display-balance">৳ ০.০০</span></div>
+            </div>
+
+            <h3 style="font-size: 1.1rem; color: var(--primary-color);">নাম পরিবর্তন করুন</h3>
+            <form id="update-name-form">
+                <div class="form-group">
+                    <label for="new-name">নতুন নাম</label>
+                    <input type="text" id="new-name" placeholder="এখানে নতুন নাম লিখুন" required>
+                </div>
+                <button type="submit" class="submit-btn" id="name-update-btn">নাম আপডেট করুন</button>
+            </form>
+
+            <h3 style="font-size: 1.1rem; color: var(--primary-color); margin-top: 25px;">পাসওয়ার্ড পরিবর্তন করুন</h3>
+            <form id="update-password-form">
+                <div class="form-group">
+                    <label for="current-password">বর্তমান পাসওয়ার্ড</label>
+                    <input type="password" id="current-password" placeholder="বর্তমান পাসওয়ার্ড" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">নতুন পাসওয়ার্ড (ন্যূনতম ৬ অক্ষর)</label>
+                    <input type="password" id="new-password" placeholder="নতুন পাসওয়ার্ড" minlength="6" required>
+                </div>
+                <button type="submit" class="submit-btn" id="password-update-btn">পাসওয়ার্ড আপডেট করুন</button>
+            </form>
+
+        </div>
+    </div>
+
+    <div id="toast" class="toast-message"></div>
+
+    <div class="bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>হোম</span>
+        </a>
+        <a href="game.html" class="nav-item">
+            <i class="fas fa-gamepad"></i>
+            <span>গেম</span>
+        </a>
+        <a href="deposit.html" class="nav-item">
+            <i class="fas fa-wallet"></i>
+            <span>ডিপোজিট</span>
+        </a>
+        <a href="account.html" class="nav-item active">
+            <i class="fas fa-user-circle"></i>
+            <span>একাউন্ট</span>
+        </a>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider, onAuthStateChanged, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCCR-mGB4rkQp0yr_H3yMTocwfRlSFtLN8",
+            authDomain: "red-chili-bot.firebaseapp.com",
+            projectId: "red-chili-bot",
+            storageBucket: "red-chili-bot.firebasestorage.app",
+            messagingSenderId: "125399502243",
+            appId: "1:125399502243:web:e2642cbbd3675622379e16",
+            measurementId: "G-ETBNKN4N9B"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+
+        const displayNameEl = document.getElementById('display-name');
+        const displayEmailEl = document.getElementById('display-email');
+        const displayBalanceEl = document.getElementById('display-balance');
+        const newNameInput = document.getElementById('new-name');
+        const updateNameForm = document.getElementById('update-name-form');
+        const nameUpdateBtn = document.getElementById('name-update-btn');
+        const updatePasswordForm = document.getElementById('update-password-form');
+        const currentPasswordInput = document.getElementById('current-password');
+        const newPasswordInput = document.getElementById('new-password');
+        const passwordUpdateBtn = document.getElementById('password-update-btn');
+
+        function showToast(message, type='success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast-message show toast-${type}`;
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        async function initializeUser() {
+            await signInAnonymously(auth);
+
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    currentUser = user;
+
+                    // Firestore path
+                    const userDocRef = doc(db, "users", currentUser.uid);
+
+                    // প্রথমে চেক করে ডকুমেন্ট আছে কিনা, না থাকলে ডিফল্ট তৈরি করবে
+                    const docSnap = await getDoc(userDocRef);
+                    if (!docSnap.exists()) {
+                        await setDoc(userDocRef, {
+                            name: "নতুন ব্যবহারকারী",
+                            email: "",
+                            balance: 0
+                        });
+                    }
+
+                    // লাইভ snapshot লিসেনার
+                    onSnapshot(userDocRef, (docSnap) => {
+                        if (docSnap.exists()) {
+                            const data = docSnap.data();
+                            displayNameEl.textContent = data.name || "নাম নেই";
+                            displayEmailEl.textContent = data.email || "ইমেল নেই";
+                            displayBalanceEl.textContent = `৳ ${parseFloat(data.balance || 0).toLocaleString('bn-BD', {minimumFractionDigits:2})}`;
+                            newNameInput.value = data.name || "";
+                        }
+                    });
+                } else {
+                    showToast("Firebase প্রমাণীকরণ ব্যর্থ হয়েছে।", "danger");
+                    displayNameEl.textContent = "অতিথি ব্যবহারকারী";
+                    displayEmailEl.textContent = "no-email@anonymous.com";
+                    displayBalanceEl.textContent = "৳ ০.০০";
+                }
+            });
+        }
+
+        initializeUser();
+
+        // Update Name
+        updateNameForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            if (!currentUser) {
+                showToast("প্রমাণীকরণ নেই।", "danger");
+                return;
+            }
+            const newName = newNameInput.value.trim();
+            if (!newName) {
+                showToast("নাম ফাঁকা রাখা যাবে না।", "danger");
+                return;
+            }
+            nameUpdateBtn.disabled = true;
+            nameUpdateBtn.textContent = "আপডেট করা হচ্ছে...";
+            try {
+                await updateProfile(currentUser, { displayName: newName });
+                const userDocRef = doc(db, "users", currentUser.uid);
+                await setDoc(userDocRef, { name: newName }, { merge: true });
+                displayNameEl.textContent = newName;
+                showToast("নাম সফলভাবে আপডেট হয়েছে! 🎉", "success");
+            } catch (error) {
+                console.error(error);
+                showToast("নাম আপডেট ব্যর্থ হয়েছে।", "danger");
+            } finally {
+                nameUpdateBtn.disabled = false;
+                nameUpdateBtn.textContent = "নাম আপডেট করুন";
+            }
+        });
+
+        // Update Password
+        updatePasswordForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            if (!currentUser || currentUser.isAnonymous) {
+                showToast("পাসওয়ার্ড পরিবর্তন শুধুমাত্র ইমেল/পাসওয়ার্ড ব্যবহারকারীদের জন্য।", "danger");
+                return;
+            }
+            const currentPass = currentPasswordInput.value;
+            const newPass = newPasswordInput.value;
+            if (newPass.length < 6) {
+                showToast("পাসওয়ার্ড ন্যূনতম ৬ অক্ষরের হতে হবে।", "danger");
+                return;
+            }
+            passwordUpdateBtn.disabled = true;
+            passwordUpdateBtn.textContent = "আপডেট করা হচ্ছে...";
+            try {
+                const credential = EmailAuthProvider.credential(currentUser.email, currentPass);
+                await reauthenticateWithCredential(currentUser, credential);
+                await updatePassword(currentUser, newPass);
+                showToast("পাসওয়ার্ড সফলভাবে আপডেট হয়েছে! 🎉", "success");
+                updatePasswordForm.reset();
+            } catch (error) {
+                console.error(error);
+                if (error.code === "auth/wrong-password") {
+                    showToast("বর্তমান পাসওয়ার্ড ভুল।", "danger");
+                } else if (error.code === "auth/requires-recent-login") {
+                    showToast("নিরাপত্তার জন্য, আবার লগইন করুন।", "danger");
+                } else {
+                    showToast("পাসওয়ার্ড আপডেট ব্যর্থ: " + error.message, "danger");
+                }
+            } finally {
+                passwordUpdateBtn.disabled = false;
+                passwordUpdateBtn.textContent = "পাসওয়ার্ড আপডেট করুন";
+            }
+        });
+
+        // Bottom nav links
+        document.querySelectorAll(".bottom-nav a").forEach(link => {
+            if (link.getAttribute("href") === "account.html") return;
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                window.location.href = link.getAttribute("href");
+            });
+        });
+    </script>
+</body>
+</html>
