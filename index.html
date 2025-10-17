@@ -1,260 +1,262 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>স্বাগতম - লগইন/সাইনআপ</title>
-    <style>
-        :root {
-            --bg-color: #000000;
-            --card-color: rgba(255, 255, 255, 0.1);
-            --border-color: rgba(255, 255, 255, 0.2);
-            --text-color: #f0f0f0;
-            --primary-color: #007bff;
-            --transition-speed: 0.3s;
-        }
+<!DOCTYPE html>  <html lang="bn">    <head>    
+    <meta charset="UTF-8">    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">    
+    <title>স্বাগতম - লগইন/সাইনআপ</title>    
+    <style>    
+        :root {    
+            --bg-color: #000000;    
+            --card-color: rgba(255, 255, 255, 0.1);    
+            --border-color: rgba(255, 255, 255, 0.2);    
+            --text-color: #f0f0f0;    
+            --primary-color: #007bff;    
+            --transition-speed: 0.3s;    
+        }  body {    
+        font-family: 'Arial', sans-serif;    
+        background-color: var(--bg-color);    
+        color: var(--text-color);    
+        display: flex;    
+        justify-content: center;    
+        align-items: center;    
+        min-height: 100vh;    
+        margin: 0;    
+        padding: 20px;    
+        overflow-x: hidden;    
+    }    .auth-container {    
+    width: 100%;    
+    max-width: 400px;    
+    background: var(--card-color);    
+    backdrop-filter: blur(10px);    
+    -webkit-backdrop-filter: blur(10px);    
+    border-radius: 20px;    
+    border: 1px solid var(--border-color);    
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);    
+    padding: 30px;    
+    transition: all var(--transition-speed) ease-in-out;    
+}    
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            overflow-x: hidden;
-        }
+.tabs {    
+    display: flex;    
+    margin-bottom: 25px;    
+    border-radius: 10px;    
+    overflow: hidden;    
+    background-color: rgba(255, 255, 255, 0.05);    
+}    
 
-        .auth-container {
-            width: 100%;
-            max-width: 400px;
-            background: var(--card-color);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            padding: 30px;
-            transition: all var(--transition-speed) ease-in-out;
-        }
+.tab-button {    
+    flex-grow: 1;    
+    padding: 12px 0;    
+    text-align: center;    
+    cursor: pointer;    
+    font-weight: bold;    
+    transition: background-color var(--transition-speed), color var(--transition-speed);    
+    border: none;    
+    background: transparent;    
+    color: var(--text-color);    
+}    
 
-        .tabs {
-            display: flex;
-            margin-bottom: 25px;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: rgba(255, 255, 255, 0.05);
-        }
+.tab-button.active {    
+    background-color: var(--primary-color);    
+    color: var(--bg-color);    
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);    
+}    
 
-        .tab-button {
-            flex-grow: 1;
-            padding: 12px 0;
-            text-align: center;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color var(--transition-speed), color var(--transition-speed);
-            border: none;
-            background: transparent;
-            color: var(--text-color);
-        }
+.form-group {    
+    margin-bottom: 20px;    
+}    
 
-        .tab-button.active {
-            background-color: var(--primary-color);
-            color: var(--bg-color);
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
-        }
+label {    
+    display: block;    
+    margin-bottom: 8px;    
+    font-size: 14px;    
+    opacity: 0.8;    
+}    
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+input[type="text"],    
+input[type="email"],    
+input[type="password"] {    
+    width: 100%;    
+    padding: 12px;    
+    border: 1px solid var(--border-color);    
+    border-radius: 8px;    
+    background-color: rgba(255, 255, 255, 0.05);    
+    color: var(--text-color);    
+    box-sizing: border-box;    
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);    
+}    
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            opacity: 0.8;
-        }
+input:focus {    
+    border-color: var(--primary-color);    
+    outline: none;    
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);    
+}    
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--text-color);
-            box-sizing: border-box;
-            transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
-        }
+button[type="submit"] {    
+    width: 100%;    
+    padding: 12px;    
+    background-color: var(--primary-color);    
+    color: var(--bg-color);    
+    border: none;    
+    border-radius: 8px;    
+    font-size: 16px;    
+    font-weight: bold;    
+    cursor: pointer;    
+    transition: background-color var(--transition-speed), transform var(--transition-speed);    
+}    
 
-        input:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
-        }
+button[type="submit"]:hover {    
+    background-color: #0056b3;    
+    transform: translateY(-2px);    
+}    
 
-        button[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
-            color: var(--bg-color);
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color var(--transition-speed), transform var(--transition-speed);
-        }
+.form-content {    
+    overflow: hidden;    
+}    
 
-        button[type="submit"]:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
+.auth-form.hidden {    
+    display: none;    
+}
 
-        .form-content {
-            overflow: hidden;
-        }
+</style>  </head>    
+<body>  <div class="auth-container">    
+    <h2 style="text-align: center; margin-bottom: 30px;">ব্যবহারকারী প্রমাণীকরণ</h2>    <div class="tabs">    
+    <button class="tab-button active" id="tab-login">লগইন</button>    
+    <button class="tab-button" id="tab-signup">সাইনআপ</button>    
+</div>    
 
-        .auth-form.hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="auth-container">
-        <h2 style="text-align: center; margin-bottom: 30px;">ব্যবহারকারী প্রমাণীকরণ</h2>
+<div class="form-content">    
+    <form id="login-form" class="auth-form">    
+        <div class="form-group">    
+            <label for="login-email">ইমেইল</label>    
+            <input type="email" id="login-email" required placeholder="আপনার ইমেইল">    
+        </div>    
+        <div class="form-group">    
+            <label for="login-password">পাসওয়ার্ড</label>    
+            <input type="password" id="login-password" required placeholder="আপনার পাসওয়ার্ড">    
+        </div>    
+        <button type="submit">লগইন করুন</button>    
+    </form>    
 
-        <div class="tabs">
-            <button class="tab-button active" id="tab-login">লগইন</button>
-            <button class="tab-button" id="tab-signup">সাইনআপ</button>
-        </div>
+    <form id="signup-form" class="auth-form hidden">    
+        <div class="form-group">    
+            <label for="signup-name">নাম</label>    
+            <input type="text" id="signup-name" required placeholder="আপনার সম্পূর্ণ নাম">    
+        </div>    
+        <div class="form-group">    
+            <label for="signup-email">ইমেইল</label>    
+            <input type="email" id="signup-email" required placeholder="আপনার ইমেইল">    
+        </div>    
+        <div class="form-group">    
+            <label for="signup-password">পাসওয়ার্ড</label>    
+            <input type="password" id="signup-password" required placeholder="একটি পাসওয়ার্ড লিখুন">    
+        </div>    
+        <button type="submit">সাইনআপ করুন</button>    
+    </form>    
+</div>    
 
-        <div class="form-content">
-            <form id="login-form" class="auth-form">
-                <div class="form-group">
-                    <label for="login-email">ইমেইল</label>
-                    <input type="email" id="login-email" required placeholder="আপনার ইমেইল">
-                </div>
-                <div class="form-group">
-                    <label for="login-password">পাসওয়ার্ড</label>
-                    <input type="password" id="login-password" required placeholder="আপনার পাসওয়ার্ড">
-                </div>
-                <button type="submit">লগইন করুন</button>
-            </form>
+<div id="notification-area" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
 
-            <form id="signup-form" class="auth-form hidden">
-                <div class="form-group">
-                    <label for="signup-name">নাম</label>
-                    <input type="text" id="signup-name" required placeholder="আপনার সম্পূর্ণ নাম">
-                </div>
-                <div class="form-group">
-                    <label for="signup-email">ইমেইল</label>
-                    <input type="email" id="signup-email" required placeholder="আপনার ইমেইল">
-                </div>
-                <div class="form-group">
-                    <label for="signup-password">পাসওয়ার্ড</label>
-                    <input type="password" id="signup-password" required placeholder="একটি পাসওয়ার্ড লিখুন">
-                </div>
-                <button type="submit">সাইনআপ করুন</button>
-            </form>
-        </div>
-    </div>
-
-<script type="module">
-    // --- Firebase Configuration ---
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { 
-        getAuth, 
-        onAuthStateChanged, 
-        signInWithEmailAndPassword, 
-        createUserWithEmailAndPassword 
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyCCR-mGB4rkQp0yr_H3yMTocwfRlSFtLN8",
-        authDomain: "red-chili-bot.firebaseapp.com",
-        projectId: "red-chili-bot",
-        storageBucket: "red-chili-bot.firebasestorage.app",
-        messagingSenderId: "125399502243",
-        appId: "1:125399502243:web:e2642cbbd3675622379e16",
-        measurementId: "G-ETBNKN4N9B"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    const loginForm = document.getElementById('login-form');
-    const signupForm = document.getElementById('signup-form');
-    const tabLogin = document.getElementById('tab-login');
-    const tabSignup = document.getElementById('tab-signup');
-
-    function switchTo(formToShow) {
-        if (formToShow === 'login') {
-            loginForm.classList.remove('hidden');
-            signupForm.classList.add('hidden');
-            tabLogin.classList.add('active');
-            tabSignup.classList.remove('active');
-        } else {
-            loginForm.classList.add('hidden');
-            signupForm.classList.remove('hidden');
-            tabLogin.classList.remove('active');
-            tabSignup.classList.add('active');
-        }
-    }
-
-    tabLogin.addEventListener('click', () => switchTo('login'));
-    tabSignup.addEventListener('click', () => switchTo('signup'));
-
-    // --- Auto Redirect if Already Logged In ---
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            window.location.href = 'dashboard.html';
-        }
-    });
-
-    // --- Login Function ---
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = loginForm['login-email'].value;
-        const password = loginForm['login-password'].value;
-
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-            window.location.href = 'dashboard.html';
-        } catch (error) {
-            console.log("লগইন ব্যর্থ:", error.message);
-        }
-    });
-
-    // --- Signup Function ---
-    signupForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const name = signupForm['signup-name'].value;
-        const email = signupForm['signup-email'].value;
-        const password = signupForm['signup-password'].value;
-
-        try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-
-            await setDoc(doc(db, "users", user.uid), {
-                name: name,
-                email: email,
-                balance: 50
-            });
-
-            window.location.href = 'dashboard.html';
-        } catch (error) {
-            console.log("সাইনআপ ব্যর্থ:", error.message);
-        }
-    });
-
-    document.addEventListener('DOMContentLoaded', () => switchTo('login'));
-</script>
-</body>
-</html>
+</div>    <script type="module">    
+    // --- Firebase Config ---    
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";    
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";    
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";    
+  
+    const firebaseConfig = {    
+        apiKey: "AIzaSyCCR-mGB4rkQp0yr_H3yMTocwfRlSFtLN8",    
+        authDomain: "red-chili-bot.firebaseapp.com",    
+        projectId: "red-chili-bot",    
+        storageBucket: "red-chili-bot.firebasestorage.app",    
+        messagingSenderId: "125399502243",    
+        appId: "1:125399502243:web:e2642cbbd3675622379e16",    
+        measurementId: "G-ETBNKN4N9B"    
+    };    
+  
+    const app = initializeApp(firebaseConfig);    
+    const auth = getAuth(app);    
+    const db = getFirestore(app);    
+  
+    // --- UI Logic ---    
+    const loginForm = document.getElementById('login-form');    
+    const signupForm = document.getElementById('signup-form');    
+    const tabLogin = document.getElementById('tab-login');    
+    const tabSignup = document.getElementById('tab-signup');    
+    const notificationArea = document.getElementById('notification-area');    
+  
+    function showNotification(message, type = 'success') {    
+        const toast = document.createElement('div');    
+        toast.textContent = message;    
+        toast.style.cssText = `    
+            padding: 10px 20px;    
+            margin-bottom: 10px;    
+            border-radius: 8px;    
+            color: #fff;    
+            background-color: ${type === 'error' ? '#dc3545' : '#28a745'};    
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);    
+            opacity: 0;    
+            transition: opacity 0.5s ease-in-out;    
+        `;    
+        notificationArea.prepend(toast);    
+        setTimeout(() => { toast.style.opacity = 1; }, 10);    
+        setTimeout(() => { toast.style.opacity = 0; }, 4000);    
+        setTimeout(() => { toast.remove(); }, 4500);    
+    }    
+  
+    function switchTo(formToShow) {    
+        if (formToShow === 'login') {    
+            loginForm.classList.remove('hidden');    
+            signupForm.classList.add('hidden');    
+            tabLogin.classList.add('active');    
+            tabSignup.classList.remove('active');    
+        } else {    
+            loginForm.classList.add('hidden');    
+            signupForm.classList.remove('hidden');    
+            tabLogin.classList.remove('active');    
+            tabSignup.classList.add('active');    
+        }    
+    }    
+  
+    tabLogin.addEventListener('click', () => switchTo('login'));    
+    tabSignup.addEventListener('click', () => switchTo('signup'));    
+  
+    // --- Login Function ---    
+    loginForm.addEventListener('submit', async (e) => {    
+        e.preventDefault();    
+        const email = loginForm['login-email'].value;    
+        const password = loginForm['login-password'].value;    
+  
+        try {    
+            await signInWithEmailAndPassword(auth, email, password);    
+            showNotification('লগইন সফল! ড্যাশবোর্ডে যাচ্ছেন...', 'success');    
+            setTimeout(() => window.location.href = 'dashboard.html', 1000);    
+        } catch (error) {    
+            showNotification('লগইন ব্যর্থ: ইমেইল বা পাসওয়ার্ড ভুল।', 'error');    
+        }    
+    });    
+  
+    // --- Signup Function ---    
+    signupForm.addEventListener('submit', async (e) => {    
+        e.preventDefault();    
+        const name = signupForm['signup-name'].value;    
+        const email = signupForm['signup-email'].value;    
+        const password = signupForm['signup-password'].value;    
+  
+        try {    
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);    
+            const user = userCredential.user;    
+  
+            await setDoc(doc(db, "users", user.uid), {    
+                name: name,    
+                email: email,    
+                balance: 50    
+            });    
+  
+            showNotification('সাইনআপ সফল! ড্যাশবোর্ডে যাচ্ছেন...', 'success');    
+            setTimeout(() => window.location.href = 'dashboard.html', 1000);    
+        } catch (error) {    
+            showNotification('সাইনআপ ব্যর্থ: এই ইমেইলটি ইতিমধ্যেই ব্যবহৃত।', 'error');    
+        }    
+    });    
+  
+    document.addEventListener('DOMContentLoaded', () => switchTo('login'));    
+</script>  </body>    
+</html> 
